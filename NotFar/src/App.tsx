@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.scss";
+import "./App.css";
 import MapView from "./components/MapView";
 import { grafo } from "./data/grafo";
 import { tecnicos } from "./data/tecnico";
