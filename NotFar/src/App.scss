@@ -1,70 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
 $ms-blue: #0078d4;
 $ms-bg: #f3f2f1;
 $ms-black: #201f1e;
 $ms-white: #ffffff;
 $ms-border: #edebe9;
 
-.app {
-  font-family: "Segoe UI", system-ui, sans-serif;
-  background-color: $ms-bg;
-  color: $ms-black;
-  min-height: 100vh;
-  padding: 16px;
-  box-sizing: border-box;
+$brand-primary: #0078d4;
+$brand-success: #107c10;
+$brand-danger: #a4262c;
+$bg-app: #faf9f8;
+$text-main: #201f1e;
+$text-muted: #605e5d;
+$white: #ffffff;
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
 
-  .title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 24px;
-    border-left: 4px solid $ms-blue;
-    padding-left: 12px;
+.app {
+  font-family:
+    "Inter",
+    -apple-system,
+    system-ui,
+    sans-serif;
+  background-color: $bg-app;
+  color: $text-main;
+  min-height: 100vh;
+  padding: clamp(1rem, 5vw, 3rem);
+  line-height: 1.6;
+
+  .header {
+    margin-bottom: 3rem;
+
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      &::before {
+        content: "";
+        width: 6px;
+        height: 32px;
+        background: $brand-primary;
+        border-radius: 4px;
+      }
+    }
+
+    .subtitle {
+      color: $text-muted;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      font-family: "JetBrains Mono", monospace;
+    }
   }
 
   .card {
-    background: $ms-white;
-    border: 1px solid $ms-border;
-    padding: 20px;
-    border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin-bottom: 16px;
+    background: $white;
+    border: 1px solid #edebe9;
+    padding: 1.5rem;
+    border-radius: 6px;
+    box-shadow: $shadow-sm;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    margin-bottom: 1.25rem;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   .btn {
-    width: 100%;
-    background-color: $ms-blue;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-weight: 600;
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    background: $brand-primary;
+    color: $white;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.875rem;
     cursor: pointer;
-    transition: background 0.2s ease;
-    display: block;
+    transition: all 0.2s;
+    width: 100%;
+    box-sizing: border-box;
 
     &:hover {
-      background-color: #106ebe;
+      background: #106ebe;
+      box-shadow: 0 2px 8px rgba(0, 120, 212, 0.35);
     }
 
-    &.btn-red {
-      background-color: #a4262c;
+    &:active {
+      transform: scale(0.98);
     }
 
-    &.btn-gold {
-      background-color: #847545;
+    &.btn-outline {
+      background: transparent;
+      border: 1px solid #d2d0ce;
+      color: $text-main;
+
+      &:hover {
+        background: #f3f2f1;
+        box-shadow: none;
+      }
     }
   }
 }
 
 @media (min-width: 768px) {
   .app {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 40px;
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
 
     .btn {
       width: auto;
-      display: inline-block;
-      min-width: 180px;
-      margin-right: 12px;
     }
   }
 }
