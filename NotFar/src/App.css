@@ -1,58 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
 .app {
-  font-family: "Segoe UI", system-ui, sans-serif;
-  background-color: #f3f2f1;
+  font-family: "Inter", -apple-system, system-ui, sans-serif;
+  background-color: #faf9f8;
   color: #201f1e;
   min-height: 100vh;
-  padding: 16px;
-  box-sizing: border-box;
+  padding: clamp(1rem, 5vw, 3rem);
+  line-height: 1.6;
 }
-.app .title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 24px;
-  border-left: 4px solid #0078d4;
-  padding-left: 12px;
+.app .header {
+  margin-bottom: 3rem;
+}
+.app .header .title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.app .header .title::before {
+  content: "";
+  width: 6px;
+  height: 32px;
+  background: #0078d4;
+  border-radius: 4px;
+}
+.app .header .subtitle {
+  color: #605e5d;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  font-family: "JetBrains Mono", monospace;
 }
 .app .card {
   background: #ffffff;
   border: 1px solid #edebe9;
-  padding: 20px;
-  border-radius: 2px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  margin-bottom: 16px;
+  padding: 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 1.25rem;
+}
+.app .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.app .card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 .app .btn {
-  width: 100%;
-  background-color: #0078d4;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-weight: 600;
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  background: #0078d4;
+  color: #ffffff;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
-  transition: background 0.2s ease;
-  display: block;
+  transition: all 0.2s;
+  width: 100%;
+  box-sizing: border-box;
 }
 .app .btn:hover {
-  background-color: #106ebe;
+  background: #106ebe;
+  box-shadow: 0 2px 8px rgba(0, 120, 212, 0.35);
 }
-.app .btn.btn-red {
-  background-color: #a4262c;
+.app .btn:active {
+  transform: scale(0.98);
 }
-.app .btn.btn-gold {
-  background-color: #847545;
+.app .btn.btn-outline {
+  background: transparent;
+  border: 1px solid #d2d0ce;
+  color: #201f1e;
+}
+.app .btn.btn-outline:hover {
+  background: #f3f2f1;
+  box-shadow: none;
 }
 
 @media (min-width: 768px) {
   .app {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 40px;
+  }
+  .app .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
   }
   .app .btn {
     width: auto;
-    display: inline-block;
-    min-width: 180px;
-    margin-right: 12px;
   }
 }
 
