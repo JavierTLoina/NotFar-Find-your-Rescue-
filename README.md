@@ -1,10 +1,6 @@
-# 🗺️ NotFar: Find your Rescue
+# NotFar: Find your Rescue
 
-<p align="center">
-  <img src="NotFar/src/assets/logo.png" alt="NotFar Logo" width="200"/>
-</p>
-
-## 🚀 Descripción
+## Descripción
 
 **NotFar** es una plataforma de gestión de rutas de emergencia en tiempo real. Utiliza WebSockets para permitir el rastreo fluido de unidades de rescate, proporcionando cálculos de ruta precisos y estimaciones de tiempo de llegada (ETA) dinámicas para optimizar la respuesta ante emergencias.
 
