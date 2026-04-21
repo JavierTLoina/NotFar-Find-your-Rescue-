@@ -1,9 +1,50 @@
-¡Claro que sí, bro! Qué buena idea. Mientras Render termina de pelear con las rutas, vamos a dejar tu proyecto con una presentación impecable. Un buen README no solo explica qué hace, sino que demuestra que el proyecto está bien estructured y listo para usar.Como aún no tenemos el link final de Render, dejaremos ese espacio en blanco para que lo rellenes en cuanto esté "Live".Aquí tienes el README profesional para NotFar: Find your Rescue. Cópialo y pégalo en tu archivo README.md en VS Code (junto al server.js).🗺️ NotFar: Find your Rescue<p align="center"><img src="https://raw.githubusercontent.com/username/repo/main/NotFar/src/assets/logo.png" alt="NotFar Logo" width="200"/></p>🚀 DescripciónNotFar es una plataforma de rastreo y gestión de rutas de emergencia en tiempo real diseñada para optimizar los tiempos de respuesta de los equipos de rescate. Utilizando mapas interactivos y conexión por WebSockets, permite visualizar la posición exacta de las unidades, calcular rutas eficientes y estimar tiempos de llegada (ETA) precisos, todo en directo.Este proyecto está desplegado en Render (Backend) y Vercel (Frontend).✨ Características PrincipalesRastreo en Tiempo Real: Visualización fluida de la posición de las unidades de rescate sobre el mapa.Cálculo de Rutas Inteligentes: Integración con OpenRouteService para encontrar la ruta más rápida del punto A al B.Mapas Interactivos: Implementado con Leaflet y React-Leaflet para una experiencia de usuario suave y detallada.ETAs Precisos: Cálculo dinámico del tiempo estimado de llegada basándose en la distancia y duración real de la ruta.Frontend Moderno: Construido con React y TypeScript para un código robusto y mantenible.📸 Capturas de Pantalla[Aquí insertaremos la foto de tu mapa cuando esté funcionando, para que se vea la ruta y el ETA].[TU_FOTO_AQUÍ.png] - Vista principal de NotFar mostrando el rastreo de una unidad y su ruta calculada.🛠️ Tecnologías UtilizadasFrontend:React 18TypeScriptViteLeafletReact-LeafletSocket.io-clientBackend:Node.jsExpressSocket.ioCorsOpenRouteService API🔗 Enlaces del ProyectoDespliegueURLFrontend (Vercel)https://tu-proyecto.vercel.app/Backend (Render)[TU_URL_DE_RENDER_AQUÍ]💻 Instalación y Ejecución LocalPara correr este proyecto en tu entorno local, necesitarás tener instalado Node.js.Paso 1: Clonar el RepositorioPowerShellgit clone https://github.com/tu-usuario/NotFar-Find-your-Rescue.git
-cd NotFar-Find-your-Rescue/NotFar
-Paso 2: Instalar DependenciasInstala las librerías necesarias para el backend y el frontend.PowerShellnpm install
-Paso 3: Configuración del FrontendAsegúrate de que tu Frontend de React se conecte al servidor local (localhost:3001) si estás desarrollando.Paso 4: Ejecutar el ProyectoPowerShell# En una terminal, ejecuta el servidor (Backend)
-node server.js
+# 🗺️ NotFar: Find your Rescue
 
-# En otra terminal, ejecuta el frontend (React)
-npm run dev
-📂 Estructura del Proyecto[Aquí pondré la foto de tu VS Code con la estructura de carpetas][TU_FOTO_ESTRUCTURA_AQUÍ.png] - Estructura limpia de carpetas de NotFar.La estructura del proyecto es clara y organizada, facilitando el desarrollo y el despliegue:/NotFar: Carpeta principal del proyecto./dist: Contiene los archivos de compilación listos para producción./node_modules: Carpeta de librerías instaladas./src: Carpeta con el código fuente del Frontend (React, Components, Assets, data).package.json: Archivo de configuración de dependencias de Node.js.server.js: El servidor backend que maneja los WebSockets y la API.⚙️ Despliegue en Render (Guía Rápida)Para desplegar este backend en Render como un Web Service, utiliza la siguiente configuración:ParámetroConfiguraciónBranchmainRoot DirectoryNotFarBuild Commandnpm installStart Commandnode server.jsNota: Recuerda configurar las variables de entorno si tu proyecto lo requiere.❤️ ContribucionesEste proyecto es de código abierto. ¡Cualquier contribución, reporte de bug o sugerencia de mejora es bienvenida!📄 LicenciaEste proyecto está bajo la licencia MIT.📸 Cómo añadir las fotos:Para que el README se vea así de pro, haz esto en tu VS Code:Crea una carpeta llamada screenshots dentro de NotFar/src/assets/.Saca una captura de pantalla del mapa funcionando y otra de tu VS Code con la estructura de carpetas.Guárdalas ahí como mapa.png y estructura.png.Luego, en el README, cambia las líneas que dicen [TU_FOTO_AQUÍ.png] por la ruta real, por ejemplo:<img src="NotFar/src/assets/screenshots/mapa.png" alt="Mapa funcionando" width="100%"/>
+<p align="center">
+  <img src="NotFar/src/assets/logo.png" alt="NotFar Logo" width="200"/>
+</p>
+
+## 🚀 Descripción
+
+**NotFar** es una plataforma de gestión de rutas de emergencia en tiempo real. Utiliza WebSockets para permitir el rastreo fluido de unidades de rescate, proporcionando cálculos de ruta precisos y estimaciones de tiempo de llegada (ETA) dinámicas para optimizar la respuesta ante emergencias.
+
+Este proyecto integra un **Backend en Node.js** desplegado en Render y un **Frontend en React/TypeScript**.
+
+## ✨ Características Principales
+
+* **Rastreo en Tiempo Real:** Comunicación bidireccional mediante Socket.io para actualizar la posición en el mapa sin recargar la página.
+* **Cálculo de Rutas:** Integración con la API de OpenRouteService para generar trayectorias óptimas.
+* **Interfaz Interactiva:** Mapas dinámicos implementados con Leaflet y React-Leaflet.
+* **Estimación de ETA:** Cálculo en vivo del progreso y tiempo restante basado en la duración real de la ruta.
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+### Frontend
+* **React 18** con **TypeScript**.
+* **Vite** como herramienta de construcción.
+* **Leaflet / React-Leaflet** para la renderización de mapas.
+* **Socket.io-client** para la conexión en tiempo real.
+
+### Backend
+* **Node.js** & **Express**.
+* **Socket.io** para la gestión de eventos de red.
+* **OpenRouteService API** para datos geoespaciales.
+
+---
+
+## 📂 Estructura del Proyecto
+
+El repositorio está organizado de la siguiente manera:
+
+```text
+NotFar-Find-your-Rescue/
+└── NotFar/                 # Carpeta principal del proyecto
+    ├── src/                # Código fuente del Frontend (React)
+    │   ├── assets/         # Imágenes y recursos estáticos
+    │   ├── components/     # Componentes modulares del mapa y UI
+    │   └── data/           # Lógica de grafos y datos técnicos
+    ├── server.js           # Servidor Backend (Socket.io + Express)
+    ├── package.json        # Dependencias del proyecto
+    └── vite.config.ts      # Configuración de Vite
