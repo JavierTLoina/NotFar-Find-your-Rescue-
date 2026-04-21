@@ -1,170 +1,95 @@
-import { useState } from "react";
-import "./App.css";
+import { useEffect, useState } from "react";
+import "./App.scss";
 import MapView from "./components/MapView";
-import { grafo } from "./data/grafo";
 import { tecnicos } from "./data/tecnico";
-import { dijkstraConRuta, obtenerRuta } from "./utils/dijkstra";
+import { io } from "socket.io-client";
 
-type Resultado = {
-  mejor: string | null;
-  mejorDist: number;
-  ruta: string[];
-};
+const socket = io("http://127.0.0.1:3001");
 
 function App() {
-  const [resultado, setResultado] = useState<Resultado | null>(null);
-  const [posicionActual, setPosicionActual] = useState<string | null>(null);
-  const [recorrido, setRecorrido] = useState<string[]>([]);
+  const [posicionActual, setPosicionActual] = useState<[number, number] | null>(
+    null,
+  );
+  const [ruta, setRuta] = useState<[number, number][]>([]);
+  const [eta, setEta] = useState<number | null>(null);
+  const [progreso, setProgreso] = useState(0);
   const [buscando, setBuscando] = useState(false);
 
-  const buscarTecnico = (tipo: string, destino: string) => {
-    setBuscando(true);
-    let mejor: string | null = null;
-    let mejorDist = Infinity;
-    let mejorRuta: string[] = [];
-
-    tecnicos.forEach((t) => {
-      if (t.disponible && t.tipo === tipo) {
-        const { dist, prev } = dijkstraConRuta(grafo, t.ubicacion);
-
-        if (dist[destino] < mejorDist) {
-          mejorDist = dist[destino];
-          mejor = t.id;
-          mejorRuta = obtenerRuta(prev, destino);
-        }
-      }
+  useEffect(() => {
+    socket.on("position", (data) => {
+      setPosicionActual(data.coords);
+      setProgreso(data.progress);
+      setEta(data.eta);
     });
 
-    setResultado({ mejor, mejorDist, ruta: mejorRuta });
-    simularMovimiento(mejorRuta);
-  };
+    socket.on("route", (data) => {
+      setRuta(data);
+    });
+  }, []);
 
-  const simularMovimiento = (ruta: string[]) => {
-    let i = 0;
-    setRecorrido([]);
+  const buscarTecnico = (tipo: string) => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const user: [number, number] = [
+        pos.coords.longitude,
+        pos.coords.latitude,
+      ];
 
-    const intervalo = setInterval(() => {
-      setPosicionActual(ruta[i]);
-      setRecorrido((prev) => [...prev, ruta[i]]);
-      i++;
+      const tecnico = tecnicos.find((t) => t.tipo === tipo && t.disponible);
 
-      if (i >= ruta.length) {
-        clearInterval(intervalo);
-        setBuscando(false);
-      }
-    }, 800);
+      if (!tecnico) return;
+
+      setBuscando(true);
+
+      socket.emit("startRoute", {
+        start: tecnico.coords,
+        end: user,
+      });
+    });
   };
 
   return (
     <div className="app">
       <header className="header">
         <h1 className="title">Notfar</h1>
-        <p className="subtitle">
-          {buscando ? "ANALYZING_NETWORK_GRAPH..." : "SYSTEM_READY"}
-        </p>
+        <p className="subtitle">{buscando ? "TRACKING..." : "READY"}</p>
       </header>
 
       <main className="dashboard-grid">
         <section className="card">
           <h3>Fast Rescue</h3>
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-          >
-            <button
-              className="btn btn-red"
-              onClick={() => buscarTecnico("plomero", "D")}
-              disabled={buscando}
-            >
-              Request Plomero
-            </button>
-            <button
-              className="btn btn-red"
-              onClick={() => buscarTecnico("electricista", "D")}
-              disabled={buscando}
-            >
-              Request Electricista
-            </button>
-          </div>
-        </section>
-
-        <section className="card">
-          <h3>General Services</h3>
+          <button className="btn" onClick={() => buscarTecnico("plomero")}>
+            Plomero
+          </button>
+          <button className="btn" onClick={() => buscarTecnico("electricista")}>
+            Electricista
+          </button>
           <button
             className="btn btn-outline"
-            onClick={() => buscarTecnico("gomero", "D")}
-            disabled={buscando}
+            onClick={() => buscarTecnico("gomero")}
           >
-            Find Gomero
+            Gomero
           </button>
         </section>
 
-        {resultado && (
-          <section className="card" style={{ borderLeft: "4px solid #107c10" }}>
-            <h3>Assignment Details</h3>
-            <div className="subtitle" style={{ marginBottom: "10px" }}>
-              TECH_ID: {resultado.mejor}
-            </div>
-            <p>
-              <strong>Distance:</strong> {resultado.mejorDist} units
-            </p>
-            <p>
-              <strong>Optimal Path:</strong> {resultado.ruta.join(" → ")}
-            </p>
-          </section>
-        )}
-
         <section className="card">
-          <h3>Live Simulation</h3>
-          <div
-            className="simulation-container"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "20px",
-              background: "#f3f2f1",
-              padding: "20px",
-              borderRadius: "4px",
-            }}
-          >
-            {["A", "B", "C", "D"].map((nodo) => (
-              <div
-                key={nodo}
-                className="node-circle"
-                style={{
-                  width: "45px",
-                  height: "45px",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  transition: "all 0.3s ease",
-                  background:
-                    posicionActual === nodo
-                      ? "#0078d4"
-                      : recorrido.includes(nodo)
-                        ? "#d1e9ff"
-                        : "#ffffff",
-                  color: posicionActual === nodo ? "white" : "#201f1e",
-                  border: `2px solid ${
-                    posicionActual === nodo ? "#0078d4" : "#edebe9"
-                  }`,
-                  boxShadow:
-                    posicionActual === nodo
-                      ? "0 0 15px rgba(0,120,212,0.4)"
-                      : "none",
-                }}
-              >
-                {nodo}
-              </div>
-            ))}
+          <h3>Tracking</h3>
+          <p>ETA: {eta}s</p>
+
+          <div style={{ background: "#edebe9", height: "6px" }}>
+            <div
+              style={{
+                width: `${progreso}%`,
+                height: "100%",
+                background: "#0078d4",
+                transition: "width 0.1s linear",
+              }}
+            />
           </div>
         </section>
 
         <section className="card">
           <h3>Live Map</h3>
-          <MapView posicion={posicionActual} />
+          <MapView posicion={posicionActual} ruta={ruta} />
         </section>
       </main>
     </div>
