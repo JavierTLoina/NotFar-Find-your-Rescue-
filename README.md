@@ -1,4 +1,4 @@
-# NotFar: Find your Rescue
+# NotFar: Find your Rescue (First Sprint)
 
 ## Descripción
 
