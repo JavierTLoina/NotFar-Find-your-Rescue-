@@ -23,8 +23,6 @@ const API_KEY =
   "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjBhODZkYmZhMDAyMjRmNWI4ZGNjMmQzMTU3YzU4MjI5IiwiaCI6Im11cm11cjY0In0=";
 
 io.on("connection", (socket) => {
-  console.log("Cliente conectado:", socket.id);
-
   socket.on("startRoute", async ({ start, end }) => {
     try {
       const res = await fetch(
@@ -42,7 +40,6 @@ io.on("connection", (socket) => {
       );
 
       const data = await res.json();
-
       if (!data.features) return;
 
       const coords = data.features[0].geometry.coordinates;
@@ -81,7 +78,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.get("*", (req, res) => {
+app.get("(.*)", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
