@@ -1,0 +1,59 @@
+.app {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background-color: #f3f2f1;
+  color: #201f1e;
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.app .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  border-left: 4px solid #0078d4;
+  padding-left: 12px;
+}
+.app .card {
+  background: #ffffff;
+  border: 1px solid #edebe9;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 16px;
+}
+.app .btn {
+  width: 100%;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: block;
+}
+.app .btn:hover {
+  background-color: #106ebe;
+}
+.app .btn.btn-red {
+  background-color: #a4262c;
+}
+.app .btn.btn-gold {
+  background-color: #847545;
+}
+
+@media (min-width: 768px) {
+  .app {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  .app .btn {
+    width: auto;
+    display: inline-block;
+    min-width: 180px;
+    margin-right: 12px;
+  }
+}
+
+/*# sourceMappingURL=App.css.map */
