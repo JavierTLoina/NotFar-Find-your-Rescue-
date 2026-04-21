@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.scss";
 import { grafo } from "./data/grafo";
 import { tecnicos } from "./data/tecnico";
 import { dijkstraConRuta, obtenerRuta } from "./utils/dijkstra";
@@ -11,26 +12,6 @@ type Resultado = {
 
 function App() {
   const [resultado, setResultado] = useState<Resultado | null>(null);
-  const [idioma, setIdioma] = useState<"es" | "en">("es");
-
-  const textos = {
-    es: {
-      titulo: "Not Far",
-      urgente: "Emergencias",
-      normal: "Servicios",
-      tecnico: "Técnico",
-      distancia: "Distancia",
-      ruta: "Ruta",
-    },
-    en: {
-      titulo: "Not Far",
-      urgente: "Fast Rescue",
-      normal: "Services",
-      tecnico: "Technician",
-      distancia: "Distance",
-      ruta: "Route",
-    },
-  };
 
   const buscarTecnico = (tipo: string, destino: string) => {
     let mejor: string | null = null;
@@ -53,36 +34,43 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h1>{textos[idioma].titulo}</h1>
+    <div className="app">
+      <h1 className="title">Not Far</h1>
 
-      <button
-        onClick={() => setIdioma(idioma === "es" ? "en" : "es")}
-        style={{ marginBottom: "20px" }}
-      >
-        {idioma === "es" ? "EN" : "ES"}
-      </button>
+      <div className="card">
+        <h2>Fast Rescue</h2>
 
-      <h2>{textos[idioma].urgente}</h2>
-      <button onClick={() => buscarTecnico("plomero", "D")}>Plomero</button>
-      <button onClick={() => buscarTecnico("electricista", "D")}>
-        Electricista
-      </button>
+        <button
+          className="btn btn-red"
+          onClick={() => buscarTecnico("plomero", "D")}
+        >
+          Plomero
+        </button>
 
-      <h2 style={{ marginTop: "20px" }}>{textos[idioma].normal}</h2>
-      <button onClick={() => buscarTecnico("gomero", "D")}>Gomero</button>
+        <button
+          className="btn btn-red"
+          onClick={() => buscarTecnico("electricista", "D")}
+        >
+          Electricista
+        </button>
+      </div>
+
+      <div className="card">
+        <h2>Servicios</h2>
+
+        <button
+          className="btn btn-gold"
+          onClick={() => buscarTecnico("gomero", "D")}
+        >
+          Gomero
+        </button>
+      </div>
 
       {resultado && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>
-            {textos[idioma].tecnico}: {resultado.mejor}
-          </h3>
-          <p>
-            {textos[idioma].distancia}: {resultado.mejorDist}
-          </p>
-          <p>
-            {textos[idioma].ruta}: {resultado.ruta.join(" → ")}
-          </p>
+        <div className="card">
+          <h3>Técnico: {resultado.mejor}</h3>
+          <p>Distancia: {resultado.mejorDist}</p>
+          <p>Ruta: {resultado.ruta.join(" → ")}</p>
         </div>
       )}
     </div>

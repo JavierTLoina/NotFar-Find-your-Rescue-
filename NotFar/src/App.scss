@@ -1,0 +1,70 @@
+$ms-blue: #0078d4;
+$ms-bg: #f3f2f1;
+$ms-black: #201f1e;
+$ms-white: #ffffff;
+$ms-border: #edebe9;
+
+.app {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background-color: $ms-bg;
+  color: $ms-black;
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    border-left: 4px solid $ms-blue;
+    padding-left: 12px;
+  }
+
+  .card {
+    background: $ms-white;
+    border: 1px solid $ms-border;
+    padding: 20px;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
+  }
+
+  .btn {
+    width: 100%;
+    background-color: $ms-blue;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: block;
+
+    &:hover {
+      background-color: #106ebe;
+    }
+
+    &.btn-red {
+      background-color: #a4262c;
+    }
+
+    &.btn-gold {
+      background-color: #847545;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .app {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+
+    .btn {
+      width: auto;
+      display: inline-block;
+      min-width: 180px;
+      margin-right: 12px;
+    }
+  }
+}
