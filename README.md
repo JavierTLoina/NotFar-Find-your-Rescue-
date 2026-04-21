@@ -6,7 +6,7 @@
 
 Este proyecto integra un **Backend en Node.js** desplegado en Render y un **Frontend en React/TypeScript**.
 
-## ✨ Características Principales
+## Características Principales
 
 * **Rastreo en Tiempo Real:** Comunicación bidireccional mediante Socket.io para actualizar la posición en el mapa sin recargar la página.
 * **Cálculo de Rutas:** Integración con la API de OpenRouteService para generar trayectorias óptimas.
@@ -15,7 +15,7 @@ Este proyecto integra un **Backend en Node.js** desplegado en Render y un **Fron
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 ### Frontend
 * **React 18** con **TypeScript**.
@@ -30,7 +30,7 @@ Este proyecto integra un **Backend en Node.js** desplegado en Render y un **Fron
 
 ---
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 
 El repositorio está organizado de la siguiente manera:
 
