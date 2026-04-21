@@ -12,6 +12,8 @@ type Resultado = {
 
 function App() {
   const [resultado, setResultado] = useState<Resultado | null>(null);
+  const [posicionActual, setPosicionActual] = useState<string | null>(null);
+  const [recorrido, setRecorrido] = useState<string[]>([]);
 
   const buscarTecnico = (tipo: string, destino: string) => {
     let mejor: string | null = null;
@@ -31,6 +33,22 @@ function App() {
     });
 
     setResultado({ mejor, mejorDist, ruta: mejorRuta });
+    simularMovimiento(mejorRuta);
+  };
+
+  const simularMovimiento = (ruta: string[]) => {
+    let i = 0;
+    setRecorrido([]);
+
+    const intervalo = setInterval(() => {
+      setPosicionActual(ruta[i]);
+      setRecorrido((prev) => [...prev, ruta[i]]);
+      i++;
+
+      if (i >= ruta.length) {
+        clearInterval(intervalo);
+      }
+    }, 1000);
   };
 
   return (
@@ -73,6 +91,35 @@ function App() {
           <p>Ruta: {resultado.ruta.join(" → ")}</p>
         </div>
       )}
+
+      <div className="card">
+        <h3>Simulación</h3>
+
+        <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+          {["A", "B", "C", "D"].map((nodo) => (
+            <div
+              key={nodo}
+              style={{
+                width: "50px",
+                height: "50px",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background:
+                  posicionActual === nodo
+                    ? "#22c55e"
+                    : recorrido.includes(nodo)
+                      ? "#38bdf8"
+                      : "#ccc",
+                color: "black",
+              }}
+            >
+              {nodo}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
