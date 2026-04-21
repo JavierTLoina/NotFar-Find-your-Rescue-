@@ -1,7 +1,20 @@
-import type { Tecnico } from "../types";
-
-export const tecnicos: Tecnico[] = [
-  { id: "T1", ubicacion: "A", disponible: true, tipo: "plomero" },
-  { id: "T2", ubicacion: "C", disponible: true, tipo: "electricista" },
-  { id: "T3", ubicacion: "B", disponible: true, tipo: "gomero" },
+export const tecnicos = [
+  {
+    id: "T1",
+    tipo: "plomero",
+    disponible: true,
+    coords: [-69.935, 18.485],
+  },
+  {
+    id: "T2",
+    tipo: "electricista",
+    disponible: true,
+    coords: [-69.933, 18.487],
+  },
+  {
+    id: "T3",
+    tipo: "gomero",
+    disponible: true,
+    coords: [-69.932, 18.488],
+  },
 ];

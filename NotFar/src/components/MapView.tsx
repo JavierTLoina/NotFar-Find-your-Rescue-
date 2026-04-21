@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polyline,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-const coords: Record<string, [number, number]> = {
-  A: [18.4861, -69.9312],
-  B: [18.487, -69.932],
-  C: [18.488, -69.933],
-  D: [18.489, -69.934],
-};
-
-export default function MapView({ posicion }: { posicion: string | null }) {
+export default function MapView({
+  posicion,
+  ruta,
+}: {
+  posicion: [number, number] | null;
+  ruta: [number, number][];
+}) {
   const [userLocation, setUserLocation] = useState<[number, number] | null>(
     null,
   );
@@ -20,23 +25,18 @@ export default function MapView({ posicion }: { posicion: string | null }) {
         setUserLocation([pos.coords.latitude, pos.coords.longitude]);
       },
       () => {
-        console.log("No se pudo obtener ubicación");
+        setUserLocation([18.4861, -69.9312]);
       },
     );
   }, []);
 
-  const center = userLocation || [18.4861, -69.9312];
-
   return (
     <MapContainer
-      center={center}
-      zoom={14}
-      style={{ height: "300px", width: "100%" }}
+      center={userLocation || [18.4861, -69.9312]}
+      zoom={15}
+      style={{ height: "400px", width: "100%", borderRadius: "10px" }}
     >
-      <TileLayer
-        attribution="&copy; OpenStreetMap"
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
       {userLocation && (
         <Marker position={userLocation}>
@@ -45,10 +45,12 @@ export default function MapView({ posicion }: { posicion: string | null }) {
       )}
 
       {posicion && (
-        <Marker position={coords[posicion]}>
-          <Popup>Técnico en camino</Popup>
+        <Marker position={posicion}>
+          <Popup>Técnico</Popup>
         </Marker>
       )}
+
+      {ruta.length > 0 && <Polyline positions={ruta} color="#0078d4" />}
     </MapContainer>
   );
 }
